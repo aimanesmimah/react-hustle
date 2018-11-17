@@ -1,0 +1,5 @@
+export default {
+    ADD_FAV : 'ADD_FAV',
+    REMOVE_FAV: 'REMOVE_FAV',
+    UPDATE_CURRENT_CAR: 'UPDATE_CURRENT_CAR'
+}
