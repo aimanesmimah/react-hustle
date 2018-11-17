@@ -20,7 +20,10 @@ export const FavCar= (state={},action)=>{
     switch (action.type) {
         case C.ADD_FAV :
             return {
-
+                id: action.id,
+                title: action.title,
+                color: action.color,
+                model: action.model
             }
         default:
             return state
