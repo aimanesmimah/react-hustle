@@ -1,27 +1,28 @@
-import styled, {css,injectGlobal} from 'styled-components';
+import styled, {css} from 'styled-components';
+//import injectGlobal from 'styled-components'; injectGlobal is no more supported in styled components
+import {createGlobalStyle} from 'styled-components';
 
-injectGlobal`
+export const GlobalStyles = createGlobalStyle`
+    body {
+        font-family: 'Roboto';
+        text-align: center;
+    }
 
-  body {
-    font-family: 'Roboto';
-    text-align: center;
-  }
+    .undisplayed{
+        display: none
+    }
+    
+    .unvisible{
+        visibility: hidden;
+    }
 
-  .undisplayed{
-    display: none
-  }
-  
-  .unvisible{
-    visibility: hidden;
-  }
+    .float-right{
+        float: right;
+    }
 
-  .float-right{
-      float: right;
-  }
-
-  .float-left{
-      float: left;
-  }
+    .float-left{
+        float: left;
+    }
 `
 
 const propertyMapper= (props,prop,defaultProperty)=> props.hasOwnProperty(prop)? (props)=> props[prop]: defaultProperty

@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import {HashRouter, Route,Switch,Redirect} from 'react-router-dom';
 import Cars from './components/pages/cars';
 import Car from './components/pages/car';
+import {GlobalStyles} from './styledComponents/main';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
+         <GlobalStyles />
          <HashRouter>
             <Switch>
               <Route exact path='/' component={Cars} />
