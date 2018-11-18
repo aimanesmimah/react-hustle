@@ -3,6 +3,10 @@ import styled, {css} from 'styled-components';
 import {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
+    html{
+        position: relative;
+        min-height:100%
+    }
     body {
         font-family: 'Roboto';
         text-align: center;
@@ -44,13 +48,14 @@ export const CustomDiv= styled.div`
                 background: ${props=> propertyMapper(props,'background','none')};
                 width: ${props=> propertyMapper(props,'width','max-content')};
                 height: ${props=> propertyMapper(props,'height','initial')};
-                box-shadow: ${props=> propertyMapper(props,'boxShadow','none') }
+                box-shadow: ${props=> propertyMapper(props,'boxShadow','none') };
                 cursor: ${props=> propertyMapper(props,'cursor','text')};
-                position: ${props=> propertyMapper(props,'position','static')} 
-                bottom: ${props=> propertyMapper(props,'bottom','auto')}
-                top: ${props=> propertyMapper(props,'top','auto')} 
-                left: ${props=> propertyMapper(props,'left','auto')}
-                right: ${props=> propertyMapper(props,'right','auto')}
+                position: ${props=> propertyMapper(props,'position','static')};
+                bottom: ${props=> propertyMapper(props,'bottom','auto')};
+                top: ${props=> propertyMapper(props,'top','auto')};
+                left: ${props=> propertyMapper(props,'left','auto')};
+                right: ${props=> propertyMapper(props,'right','auto')};
+                text-align: ${props=> propertyMapper(props,'textAlign','center')};
             `
        }
        else{
@@ -91,5 +96,8 @@ export const FlexRow= styled(Div)`
 export const FlexColumn= styled(Div)`
    display: flex;
    flex-direction: column;
+   justify-content: space-between;
+
+   ${({height})=> height && css`height: ${height}`}
 `
 
