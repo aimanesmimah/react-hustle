@@ -52,3 +52,13 @@ export const CurrentPage= (state=Number(null),action)=>{
 export const NavMenu= (state=[],action)=>{
     return state
 }
+
+// Cars length 
+export const CarsLength= (state=Number(null),action)=>{
+    switch (action.type) {
+        case C.UPDATE_CARS_LENGTH  :
+            return action.length
+        default:
+            return state
+    }
+}
