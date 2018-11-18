@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import AppTemplate from '../../AppTemplate';
+import {Div} from '../../../styledComponents/main';
 
 class CarIndex extends Component {
     render() {
         return (
-            <div>
-                
-            </div>
+            <AppTemplate>
+                <Div>Cars </Div>
+            </AppTemplate>
         );
     }
 }
