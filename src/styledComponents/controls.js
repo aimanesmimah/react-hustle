@@ -31,4 +31,5 @@ export const DefaultAnchor= styled.a`
    border: none;
    background: none;
    text-decoration: none;
+   color: none;
 `

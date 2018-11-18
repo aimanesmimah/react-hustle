@@ -44,7 +44,13 @@ export const CustomDiv= styled.div`
                 background: ${props=> propertyMapper(props,'background','none')};
                 width: ${props=> propertyMapper(props,'width','max-content')};
                 height: ${props=> propertyMapper(props,'height','initial')};
+                box-shadow: ${props=> propertyMapper(props,'boxShadow','none') }
                 cursor: ${props=> propertyMapper(props,'cursor','text')};
+                position: ${props=> propertyMapper(props,'position','static')} 
+                bottom: ${props=> propertyMapper(props,'bottom','auto')}
+                top: ${props=> propertyMapper(props,'top','auto')} 
+                left: ${props=> propertyMapper(props,'left','auto')}
+                right: ${props=> propertyMapper(props,'right','auto')}
             `
        }
        else{
@@ -58,7 +64,7 @@ export const ScrollableDiv= styled(CustomDiv)`
     max-height: ${props=> props.maxHeight};
 `
 
-export const flexRow= styled(Div)`
+export const FlexRow= styled(Div)`
     display: flex;
     flex-direction: row;
     ${props=> { 
@@ -78,9 +84,11 @@ export const flexRow= styled(Div)`
         }
          
     }}
+
+    ${(props)=> props.margin && css`margin: ${props.margin}`}
 `
 
-export const flexColumn= styled(Div)`
+export const FlexColumn= styled(Div)`
    display: flex;
    flex-direction: column;
 `
