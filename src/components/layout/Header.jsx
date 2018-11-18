@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Logo from '../common/Logo.jsx';
 import {CustomDiv,Div,FlexRow} from '../../styledComponents/main';
-import {BigRegular,BigBold} from '../../styledComponents/fonts';
-import {DefaultAnchor} from '../../styledComponents/controls';
+import {BigBold} from '../../styledComponents/fonts';
+//import {DefaultAnchor} from '../../styledComponents/controls';
 import {colors} from '../../styledComponents/colors';
 
 export default ()=> (
@@ -36,7 +36,7 @@ const Menu = (props,{store})=>{
 }
 
 const MenuItem= ({item,onItemClick})=> (
-    <CustomDiv margin={'0 24px 0 0'} cursor={'pointer'} >
+    <CustomDiv margin={'0 24px 0 0'} cursor={'pointer'} width={'max-content'} >
         <BigBold color={colors.dark_grey} onClick={(e)=> onItemClick(e,item)}>{item}</BigBold>
     </CustomDiv>
 )
