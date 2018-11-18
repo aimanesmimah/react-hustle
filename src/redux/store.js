@@ -17,6 +17,7 @@ const logger = store => next => action => {
     console.log('action', action);
     result = next(action);
     console.log('next state', store.getState());
+    console.log('result', result)
     console.groupEnd();
 }
 

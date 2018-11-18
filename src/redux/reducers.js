@@ -45,7 +45,12 @@ export const CurrentCar= (state={},action)=>{
 
 // Currrent Pagination Page
 export const CurrentPage= (state=Number(null),action)=>{
-    return state
+    switch (action.type) {
+        case C.UPDATE_CURRENT_PAGE :
+            return action.current 
+        default:
+            return state
+    }
 }
 
 // Navigation Menu

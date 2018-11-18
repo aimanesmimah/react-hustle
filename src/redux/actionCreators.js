@@ -13,6 +13,12 @@ export const removeCarFromFav= (id)=>
     id
 })
 
+export const updateCurrentPage= (current)=>
+({
+    type: C.UPDATE_CURRENT_PAGE,
+    current
+})
+
 export const updateCarsLength= (length)=>
 ({
     type: C.UPDATE_CARS_LENGTH,
