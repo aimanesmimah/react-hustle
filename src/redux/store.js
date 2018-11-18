@@ -1,8 +1,9 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { FavCars,CurrentCar, CurrentPage} from './reducers';
+import {NavMenu, FavCars,CurrentCar, CurrentPage} from './reducers';
 
 
 const initialState = {
+    NavMenu: ['Purchase','My Orders','Sell'],
     FavCars: [],
     CurrentCar: null,
     CurrentPage: 0
@@ -21,7 +22,7 @@ const logger = store => next => action => {
 
 export default () => {
         return applyMiddleware(logger)(createStore)(
-            combineReducers({FavCars, CurrentCar, CurrentPage }),
+            combineReducers({NavMenu, FavCars, CurrentCar, CurrentPage }),
             (localStorage['auto1-fav-cars'])?JSON.parse(localStorage['auto1-fav-cars']):initialState
         )
 }

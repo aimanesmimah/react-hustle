@@ -47,3 +47,8 @@ export const CurrentCar= (state={},action)=>{
 export const CurrentPage= (state=Number(null),action)=>{
     return state
 }
+
+// Navigation Menu
+export const NavMenu= (state=[],action)=>{
+    return state
+}
