@@ -1,28 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import PropTypes from 'prop-types';
+import {HashRouter, Route,Switch,Redirect} from 'react-router-dom';
+import Cars from './components/pages/cars';
+import Car from './components/pages/car';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+         <HashRouter>
+            <Switch>
+              <Route exact path='/' component={Cars} />
+              <Route path='/car/:id' component={Car} />
+              <Redirect from='/cars' to='/' />
+              <Redirect from='/Cars' to='/' />
+              <Redirect to="/" />
+            </Switch>
+          </HashRouter>
       </div>
     );
   }
+}
+
+App.contextTypes = {
+  store : PropTypes.object
 }
 
 export default App;
