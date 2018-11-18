@@ -5,10 +5,12 @@ import {colors} from './colors';
 
 export const AppButton= styled.button`
     border: none;
-    background: ${colors.light_grey};
+    background: ${colors.light_orange};
     width: 128px;
     height: 32px;
-    color: ${colors.white}
+    font-size: 18px;
+    cursor: pointer;
+    color: ${colors.white};
 
     &:focus{
         background: ${colors.dark_orange};
