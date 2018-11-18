@@ -23,7 +23,6 @@ const logger = store => next => action => {
 
 export default () => {
         return applyMiddleware(logger)(createStore)(
-            combineReducers({NavMenu, FavCars, CurrentCar, CurrentPage, CarsLength }),
-            (localStorage['auto1-fav-cars'])?JSON.parse(localStorage['auto1-fav-cars']):initialState
+            combineReducers({NavMenu, FavCars, CurrentCar, CurrentPage, CarsLength }),initialState
         )
 }

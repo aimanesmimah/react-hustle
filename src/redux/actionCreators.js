@@ -15,6 +15,6 @@ export const removeCarFromFav= (id)=>
 
 export const updateCarsLength= (length)=>
 ({
-    type: C.UPDATE_CURRENT_CAR,
+    type: C.UPDATE_CARS_LENGTH,
     length
 })
