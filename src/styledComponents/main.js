@@ -1,6 +1,7 @@
 import styled, {css} from 'styled-components';
 //import injectGlobal from 'styled-components'; injectGlobal is no more supported in styled components
 import {createGlobalStyle} from 'styled-components';
+import { colors } from './colors';
 
 export const GlobalStyles = createGlobalStyle`
     html{
@@ -39,6 +40,11 @@ export const Div= styled.div`
 ` 
 
 export const CustomDiv= styled.div`
+
+    &:hover{
+        ${({hoverColor})=> hoverColor && css`background: ${hoverColor}` };
+    }
+
    ${ props => {
        if(props && Object.keys(props).length){
             return css`
@@ -46,11 +52,11 @@ export const CustomDiv= styled.div`
                 padding: ${props=> propertyMapper(props,'padding','0') };
                 border: ${props=> propertyMapper(props,'border','none') };
                 background: ${props=> propertyMapper(props,'background','none')};
-                width: ${props=> propertyMapper(props,'width','max-content')};
-                height: ${props=> propertyMapper(props,'height','initial')};
+                width: ${props=> propertyMapper(props,'width','100%')};
+                ${({height}) => height && css`height: ${height}` };
                 box-shadow: ${props=> propertyMapper(props,'boxShadow','none') };
                 cursor: ${props=> propertyMapper(props,'cursor','text')};
-                position: ${props=> propertyMapper(props,'position','static')};
+                position: ${props=> propertyMapper(props,'position','relative')};
                 bottom: ${props=> propertyMapper(props,'bottom','auto')};
                 top: ${props=> propertyMapper(props,'top','auto')};
                 left: ${props=> propertyMapper(props,'left','auto')};
@@ -65,8 +71,14 @@ export const CustomDiv= styled.div`
 `
 
 export const ScrollableDiv= styled(CustomDiv)`
+    position : absolute;
+    z-index: 99;
     overflow-y: auto;
+    overflow-x:hidden;
     max-height: ${props=> props.maxHeight};
+    box-shadow: 0 0 1px 1px ${colors.light_grey};
+
+    ${({top}) => top && css`top: ${top}`  }
 `
 
 export const FlexRow= styled(Div)`

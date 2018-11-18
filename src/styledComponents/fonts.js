@@ -32,7 +32,7 @@ export const BigRegular= styled(Normalized)`
 
     ${({color})=> {
         if(color) return css`color: ${color}`
-        else return css`color: ${colors.light_grey}`
+        else return css`color: ${colors.dark_grey}`
     }}
 `
 
@@ -47,7 +47,7 @@ export const Medium= styled(Normalized)`
 
     ${({color})=> {
         if(color) return css`color: ${color}`
-        else return css`color: ${colors.light_grey}`
+        //else return css`color: ${colors.light_grey}`
     }}
 `
 
@@ -57,6 +57,6 @@ export const Small= styled(Normalized)`
 
     ${({color})=> {
         if(color) return css`color: ${color}`
-        else return css`color: ${colors.light_grey}`
+        //else return css`color: ${colors.light_grey}`
     }}
 `
