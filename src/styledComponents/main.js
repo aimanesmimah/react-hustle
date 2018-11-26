@@ -81,6 +81,11 @@ export const ScrollableDiv= styled(CustomDiv)`
     ${({top}) => top && css`top: ${top}`  }
 `
 
+export const WrapperDiv= styled.div`
+    position: relative;
+    ${({space})=> space && css`margin: ${space} auto` };
+`
+
 export const FlexRow= styled(Div)`
     display: flex;
     flex-direction: row;

@@ -21,8 +21,11 @@ export const AppAnchor= styled.a`
    border: none;
    backgound: none;
    color: ${colors.light_orange};
+   text-decoration: none;
 
    &:hover{
+       cursor: pointer;
+       text-decoration: underline;
        color: ${colors.dark_orange};
    }
 `

@@ -1,4 +1,4 @@
-import createStore from '../../redux/store';
+import createStore from '../../../redux/store';
 
 
 describe('store initialization & creation',()=>{
@@ -24,7 +24,7 @@ describe('store initialization & creation',()=>{
       it('store get state',function(){
           var state = store.getState()
 
-          expect(Object.keys(state).length).toEqual(3)
+          expect(Object.keys(state).length).toEqual(9)
 
           expect(state.hasOwnProperty('FavCars')).toBeTruthy()
           expect(typeof state.FavCars).toBe('object')

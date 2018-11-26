@@ -1,28 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { CustomDiv,FlexRow } from '../../../../styledComponents/main';
-import {Small,Medium} from '../../../../styledComponents/fonts';
+import {Medium} from '../../../../styledComponents/fonts';
 import { colors } from '../../../../styledComponents/colors';
 
 class Navigation extends Component {
     constructor(props){
         super(props)
-
         this.items=['first','previous','','next','last']
-        this.itemsPerPage= 10
-        this.pageCount= 0
-
-
         this.onClick= this.onClick.bind(this);
-        this.getPageCount= this.getPageCount.bind(this)
     }
 
     onClick(e,item){
         e.preventDefault()
-        const {CurrentPage,CarsLength}= this.context.store.getState()
+        const {CurrentPage,PageCount}= this.context.store.getState()
         const {onPageClick}= this.props
         
-        this.pageCount= this.getPageCount(CarsLength)
         switch (item) {
             case 'first' :
                 if(CurrentPage > 1)
@@ -33,34 +26,20 @@ class Navigation extends Component {
                     onPageClick(CurrentPage - 1)
                 break
             case 'next' : 
-                if(CurrentPage < this.pageCount)
+                if(CurrentPage < PageCount)
                     onPageClick(CurrentPage + 1)
                 break
             case 'last' :
-                if(CurrentPage < this.pageCount)
-                    onPageClick(this.pageCount)
+                if(CurrentPage < PageCount)
+                    onPageClick(PageCount)
                 break
             default:
                 break;
         }
     }
-
-    getPageCount(CarsLength){
-        var pages= CarsLength/ this.itemsPerPage
-        if(parseInt(pages) === pages)
-           return pages
-        else 
-           return pages+1
-    }
-
-
-
-
-
     
     render() {
-        const {CurrentPage, CarsLength}= this.context.store.getState()
-        this.pageCount= this.getPageCount(CarsLength)
+        const {CurrentPage, PageCount }= this.context.store.getState()
 
         return (
             <CustomDiv margin={'24px auto'} width={'max-content'} >
@@ -68,10 +47,10 @@ class Navigation extends Component {
                     {
                         this.items.map((item,i)=> {
                             if(i === 2){
-                                return <Medium key={i} color={colors.dark_grey} style={{marginRight: '24px'}} >Page {CurrentPage} of {this.pageCount}</Medium> 
+                                return <Medium key={i} color={colors.dark_grey} style={{marginRight: '24px'}} >Page {CurrentPage} of {PageCount}</Medium> 
                             }
 
-                            return <Medium key={i} style={{cursor: 'pointer',marginRight: i !== 4 ? '24px': '0'}}  onClick={(e)=> this.onClick(e,item)}  >{item}</Medium>
+                            return <Medium key={i} color={colors.light_orange} style={{cursor: 'pointer',marginRight: i !== 4 ? '24px': '0'}}  onClick={(e)=> this.onClick(e,item)}  >{item}</Medium>
                         })
                     }
                 </FlexRow>

@@ -39,6 +39,11 @@ export const BigRegular= styled(Normalized)`
 export const BigRegularSpan= styled.span`
     font-size: 18px;
     font-weight: 500;
+
+    ${({color})=> {
+        if(color) return css`color: ${color}`
+        //else return css`color: ${colors.light_grey}`
+    }}
 `
 
 export const Medium= styled(Normalized)`

@@ -1,10 +1,10 @@
 import C from './constants';
 
 
-export const addCarToFav = (car)=>
+export const addCarToFav = (id)=>
 ({
     type: C.ADD_FAV,
-    ...car
+    id
 })
 
 export const removeCarFromFav= (id)=>
@@ -13,14 +13,48 @@ export const removeCarFromFav= (id)=>
     id
 })
 
+// set current car 
+export const updateCurrentCar= item=>
+({
+    type: C.UPDATE_CURRENT_CAR, 
+    ...item
+})
+
 export const updateCurrentPage= (current)=>
 ({
     type: C.UPDATE_CURRENT_PAGE,
     current
 })
 
-export const updateCarsLength= (length)=>
+export const updatePageCount= (length)=>
 ({
-    type: C.UPDATE_CARS_LENGTH,
+    type: C.UPDATE_PAGE_COUNT,
     length
+})
+
+// filters
+export const filterByManufacturer= (manufacturer)=>
+({
+    type: C.FILTER_BY_MANUFACTURER,
+    manufacturer
+})
+
+export const filterByColor= (color)=>
+({
+    type: C.FILTER_BY_COLOR,
+    color
+})
+
+// update current cars 
+export const updatePageCars= cars=> 
+({
+    type: C.UPDATE_PAGE_CARS,
+    cars
+})
+
+// sorting 
+export const updateSorting= sort=> 
+({
+    type: C.UPDATE_SORT, 
+    sort
 })

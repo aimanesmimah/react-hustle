@@ -17,12 +17,17 @@ class StoreContext extends Component {
         }
     }
 
-    componentDidMount(){
-        this.unsubscribe = this.store.subscribe(() => {
-                this.forceUpdate();
-                var {FavCars}= this.store.getState()
-                localStorage['auto1-fav-cars'] = JSON.stringify(FavCars);
-            });
+    componentWillMount(){
+        this.unsubscribe = this.store.subscribe(
+        () => {
+            console.log('hellllllooooo')
+            console.log('updaaatee store')
+            this.forceUpdate()
+            var {FavCars}= this.store.getState()
+            console.log(FavCars)
+            var obj= {FavCars}
+            localStorage['auto1-fav-cars'] = JSON.stringify(obj);
+        })
     }
     
     componentWillUnmount(){

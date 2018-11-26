@@ -13,13 +13,13 @@ const Thumbnail= ({src})=> (
     </CustomDiv>
 )
 
-const Content= (props)=> (
+const Content= props => (
     <CustomDiv height={'78px'} margin={'0 0 0 24px'} textAlign={'left'} >
         <FlexColumn height={'78px'} >
             <BigBold color={colors.dark_grey}>{props.manufacturerName}</BigBold>
             <Medium color={colors.dark_grey} >Stock # {props.stockNumber} - {props.mileage.number} {props.mileage.unit} - {props.fuelType} - {props.color}</Medium>
             <Medium>
-                <AppAnchor >View details</AppAnchor>
+                <AppAnchor href={`#/car/${props.stockNumber}`} >View details</AppAnchor>
             </Medium>
         </FlexColumn>
     </CustomDiv>
@@ -33,18 +33,17 @@ const EmptyContent= ()=> (
     </CustomDiv>
 )
 
-const Box = (props)=> (
-    <CustomDiv width={'95%'} boxShadow={`0 0 1px 1px ${colors.light_grey}`} padding={'12px'} margin={'0 0 12px 0'} height={'90px'} >
+const Box = props => (
+    <CustomDiv boxShadow={`0 0 1px 1px ${colors.light_grey}`} padding={'12px'} margin={'0 0 12px 0'} height={'90px'} >
         <FlexRow>{ props.children }</FlexRow>
     </CustomDiv>
 ) 
 
-export const CarBox= React.memo( (props) =>
+export const CarBox= props =>
     <Box>
        <Thumbnail />
        <Content {...props} />
     </Box>
-)
 
 
 export const LoadingCarBox= ()=> 

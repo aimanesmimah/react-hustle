@@ -10,7 +10,7 @@ export const FavCars= (state=[],action)=>{
                 FavCar({},action)
             ]
         case C.REMOVE_FAV :
-            return state.filter(car=> car.id !== action.id)
+            return state.filter(current=> current !== action.id)
         default:
             return state
     }
@@ -19,12 +19,7 @@ export const FavCars= (state=[],action)=>{
 export const FavCar= (state={},action)=>{
     switch (action.type) {
         case C.ADD_FAV :
-            return {
-                id: action.id,
-                title: action.title,
-                color: action.color,
-                model: action.model
-            }
+            return action.id
         default:
             return state
     }
@@ -59,10 +54,51 @@ export const NavMenu= (state=[],action)=>{
 }
 
 // Cars length 
-export const CarsLength= (state=Number(null),action)=>{
+export const PageCount= (state=Number(null),action)=>{
     switch (action.type) {
-        case C.UPDATE_CARS_LENGTH  :
+        case C.UPDATE_PAGE_COUNT  :
             return action.length
+        default:
+            return state
+    }
+}
+
+
+// Filter By manufacturer
+export const FilterByManufacturer= (state='',action)=>{
+    switch (action.type) {
+        case C.FILTER_BY_MANUFACTURER :
+            return action.manufacturer 
+        default:
+            return state
+    }
+}
+
+// Filter By color 
+export const FilterByColor= (state='',action)=>{
+    switch (action.type) {
+        case C.FILTER_BY_COLOR:
+            return action.color 
+        default:
+            return state
+    }
+}
+
+// Page cars reducer
+export const CurrentPageCars= (state=[],action)=>{
+    switch (action.type) {
+        case C.UPDATE_PAGE_CARS  :
+            return action.cars 
+        default:
+            return state
+    }
+}
+
+// Sorting ASC/ DESC
+export const Sort= (state='none',action)=>{
+    switch (action.type) {
+        case C.UPDATE_SORT :
+            return action.sort
         default:
             return state
     }

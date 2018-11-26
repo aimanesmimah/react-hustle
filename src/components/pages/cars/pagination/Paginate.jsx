@@ -3,84 +3,64 @@ import PropTypes from 'prop-types';
 import {CarBox,LoadingCarBox} from '../CarBox';
 import Navigation from './Navigation';
 import {Div} from '../../../../styledComponents/main';
-import { getCall } from '../../../../utils/apiCalls';
-import {updateCarsLength,updateCurrentPage} from '../../../../redux/actionCreators';
+import {getCars} from '../../../../utils/helpers';
+import {updateCurrentPage,updatePageCount,updatePageCars} from '../../../../redux/actionCreators';
 
 class Paginate extends Component {
     constructor(props){
         super(props)
         this.state={
             loading: false,
-            loadingError: false,
-            carsList: []
+            loadingError: false
         }
 
-        this.getCars= this.getCars.bind(this)
         this.onPageClick= this.onPageClick.bind(this)
     }
 
     componentWillMount(){
         const {store}= this.context
-        this.getCars().then(done=>{
-            store.dispatch(updateCurrentPage(1))
-        })
-        .catch(err=>{
-           console.log('errorororororo')
-        })
-    }
+        const {CurrentPageCars}= store.getState()
 
-    getCars(page,manufacturer,color,sort){
-        this.setState({loading: true})
-
-        if(!arguments.length){
-            const {store}= this.context
-            return new Promise((resolve,reject)=>{
-                getCall('/cars').then(res=>{
-                    console.log('call results: ')
-                    console.log(res)
-                    this.setState({loading: false,carsList: res.cars})
-                    store.dispatch(updateCarsLength(res.totalPageCount))
-                    resolve('done')
-                })
-                .catch(err=>{
-                    this.setState({loading:false, loadingError:true})
-                    reject('error')
-                })
-            })
-        }
-        else{
-            let params=[]
-            params= page ? params.concat([{name: 'page', value: page }]) : [] 
-            params= manufacturer ? params.concat([{name: 'manufacturer', value: manufacturer}]) : []
-            params= color ? params.concat([{name: 'color', value: color}]) : [] 
-            params= sort ? params.concat([{name: 'color', value: sort}]): []
-            getCall('/cars',params).then(res=>{
-                console.log('second result')
-                console.log(res)
-
-                this.setState({loading: false,carsList: res.cars})
+        if(!CurrentPageCars.length){
+            this.setState({loading: true})
+            getCars().then(res=>{
+                store.dispatch(updateCurrentPage(1))
+                store.dispatch(updatePageCount(res.totalPageCount))
+                store.dispatch(updatePageCars(res.cars))
+                this.setState({loading: false})
             })
             .catch(err=>{
-                this.setState({loading: false, loadingError: true})
+                    this.setState({loading:false, loadingError:true})
             })
         }
     }
 
     onPageClick(requestedPage){
         const {store}= this.context
-        store.dispatch(updateCurrentPage(requestedPage))
-        this.getCars(requestedPage)
+        const {FilterByManufacturer, FilterByColor, Sort}= store.getState()
+
+        this.setState({loading: true})
+        getCars(requestedPage,FilterByManufacturer,FilterByColor,Sort).then(res=>{
+            this.setState({loading: false})
+            store.dispatch(updateCurrentPage(requestedPage))
+            store.dispatch(updatePageCars(res.cars))
+        })
+        .catch(err=>{
+            this.setState({loading: false, loadingError: true})  
+        })
     }
 
 
     render() {
-        const {loading,carsList}= this.state
+        const {loading}= this.state
+        const {CurrentPageCars}= this.context.store.getState()
+ 
         return (
-            <Div>
+            <Div style={{marginRight: '24px'}}>
                 {
-                    loading || !carsList.length ? 
+                    loading || !CurrentPageCars.length ? 
                         new Array(1,2,3).map((item,index)=> <LoadingCarBox key={index} /> ):
-                            carsList.map((item,index)=> <CarBox key={index}  {...item} /> ) 
+                            CurrentPageCars.map((item,index)=> <CarBox key={index}  {...item} /> ) 
                 }
                 <Navigation onPageClick={this.onPageClick}  />
             </Div>

@@ -1,17 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import StoreContext from '../../StoreContext';
+import StoreContext from '../../../StoreContext';
 
 
 describe('store context component',()=>{
-    beforeAll(()=>{
-
-    })
-
-    afterAll(()=>{
-
-    })
     
     let div;
     beforeEach(()=>{

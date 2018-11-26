@@ -12,7 +12,9 @@ const config= Object.freeze({
 
 export const getCall= (url,params=null)=>{
     
-    url= params && params.length? url + params.reduce((acc,current)=> { return acc + '&'+ current.name + '='+ current.value  },'?') : url
+    url= params && params.length? url + params.reduce((acc,current,index)=> { 
+        return (index === 0) ? acc + current.name + '=' + current.value : acc + '&'+ current.name + '='+ current.value  
+    },'?') : url
 
     return new Promise((resolve,reject)=> {
         fetch(url  ,{method: config.GET_METHOD ,
@@ -20,10 +22,11 @@ export const getCall= (url,params=null)=>{
                     })
                .then(res =>{  console.log(res); return  res.json(); })
                .then(data => {
+
                        resolve(data)
                })
                .catch(err => {
-                     reject(err)
+                    reject(err)
                })
     })
 }

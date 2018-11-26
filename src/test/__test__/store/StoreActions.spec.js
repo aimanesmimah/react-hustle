@@ -1,5 +1,5 @@
-import createStore from '../../redux/store';
-import {addCarToFav,removeCarFromFav} from '../../redux/actionCreators';
+import createStore from '../../../redux/store';
+import {addCarToFav,removeCarFromFav} from '../../../redux/actionCreators';
 
 
 describe('store dispatching action creators',()=>{
@@ -33,15 +33,13 @@ describe('store dispatching action creators',()=>{
             model: '2006'
         }
 
-        store.dispatch(addCarToFav(car))
+        store.dispatch(addCarToFav(car.id))
 
         var {FavCars}= store.getState()
 
         expect(FavCars.length).toBeGreaterThan(0)
         expect(FavCars.length).toEqual(1)
-        expect(FavCars[0] instanceof Object).toBeTruthy()
-        expect(FavCars[0].color).toEqual('Grey')
-        expect(FavCars[0].model).toEqual('2006')
+        expect(typeof FavCars[0] === 'number').toBeTruthy()
     })
 
     it('dispatch remove car that doesn\'t exist',()=>{
@@ -50,8 +48,7 @@ describe('store dispatching action creators',()=>{
         var {FavCars}= store.getState()
 
         expect(FavCars.length).toBe(1)
-        expect(FavCars[0].id).toBe(23)
-        expect(FavCars[0].title).toEqual('Mercedez benz')
+        expect(FavCars[0]).toBe(23)
     })
 
     it('dispatch remove Car from Fav',()=>{

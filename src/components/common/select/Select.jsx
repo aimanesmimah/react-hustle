@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DropDown from './DropDown';
-import {CustomDiv,Div,ScrollableDiv} from '../../../styledComponents/main';
+import {FilterSortContextConsumer} from '../../pages/cars/FilterSortContext';
+import {CustomDiv} from '../../../styledComponents/main';
 import {colors} from '../../../styledComponents/colors';
-import {Medium,BigRegular} from '../../../styledComponents/fonts';
+import {BigRegular} from '../../../styledComponents/fonts';
 import arrow from '../img/arrow.png';
 
 
@@ -12,16 +14,11 @@ class Select extends React.Component{
         super(props)
         this.state={
             showDropDown: false,
-            selectClicked: false,
-            currentItem: this.props.currentValue
+            selectClicked: false
         }
 
         this.onSelectClick= this.onSelectClick.bind(this)
-        this.onSuggestionClick= this.onSuggestionClick.bind(this)
-    }
-
-    componentWillMount(){
-        //this.setState({currentItem: this.props.currentValue})
+        this.handleDocumentClick= this.handleDocumentClick.bind(this)
     }
 
     onSelectClick(e){
@@ -29,47 +26,52 @@ class Select extends React.Component{
         this.setState({showDropDown: !this.state.showDropDown,selectClicked: true})
     }
 
-    onSuggestionClick(e,item){ 
-        e.preventDefault()
-        // cancel state if currentItem === item
-        this.setState({currentItem: item})
+    handleDocumentClick(e){
+        const {showDropDown,selectClicked}= this.state
+        if(showDropDown && !selectClicked){
+            this.setState({showDropDown: false})
+        }
+        else{
+            this.setState({selectClicked: false})
+        }
     }
 
     componentDidMount(){
-        const self=this
-        document.addEventListener('click',function(e){
-            const {showDropDown,selectClicked}= self.state
-            if(showDropDown && !selectClicked){
-                self.setState({showDropDown: false})
-            }
-            else{
-                self.setState({selectClicked: false})
-            }
-        })
+        document.addEventListener('click',this.handleDocumentClick)
     }
 
     componentWillUnmount(){
-        document.removeEventListener('click')
+        document.removeEventListener('click',this.handleDocumentClick)
     }
 
     render(){
-        const {title,list}= this.props 
-        const {showDropDown,currentItem}= this.state
+        const {title,noMarginTop}= this.props 
+        const {showDropDown}= this.state
 
         return (
-            <CustomDiv margin={'12px auto'} width={'90%'} textAlign={'left'} >
-                <BigRegular style={{marginBottom: '12px' }} >{title}</BigRegular>
-                <CustomDiv onClick={this.onSelectClick} height={'20px'} cursor={'pointer'}
-                            boxShadow={`0 0 1px 1px ${colors.light_grey}`}  padding={'12px 0'}>
-                    <BigRegular className="float-left" style={{marginLeft: '12px'}}>{currentItem}</BigRegular>
-                    <img className="float-right" src={arrow} alt="" style={{marginTop: '5px',marginRight: '12px'}}   />
-                </CustomDiv>
+            <FilterSortContextConsumer>
                 {
-                    showDropDown ? <DropDown list={list} onSuggestionClick={this.onSuggestionClick} /> : ""
-                }
+                    ({currentManufacturer,currentColor,currentSort})=> (
+                        <CustomDiv margin={ noMarginTop ? '0 auto' : '12px auto'} textAlign={'left'} >
+                            <BigRegular style={{marginBottom: '12px' }} >{title}</BigRegular>
+                            <CustomDiv onClick={this.onSelectClick} height={'20px'} cursor={'pointer'}
+                                        boxShadow={`0 0 1px 1px ${colors.light_grey}`}  padding={'12px 0'}>
+                                <BigRegular className="float-left" style={{marginLeft: '12px'}}>{title === 'Sort by' ? currentSort : title === 'Color' ? currentColor: currentManufacturer } </BigRegular>
+                                <img className="float-right" src={arrow} alt="" style={{marginTop: '5px',marginRight: '12px'}}   />
+                            </CustomDiv>
+                            {
+                                !showDropDown ? "" :  <DropDown type={title} /> 
+                            }
 
-            </CustomDiv> )
+                        </CustomDiv> 
+                    )
+                }
+            </FilterSortContextConsumer> )
     }
+}
+
+Select.contextTypes = {
+    store : PropTypes.object
 }
 
 export default Select
